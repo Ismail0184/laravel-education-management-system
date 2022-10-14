@@ -1,0 +1,111 @@
+@extends('layouts.talimat')
+
+
+@section('content')
+<div class="container pb-5">
+        <!-- Table -->
+        <div class="row justify-content-center">
+           <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <a href="{{ route('siteplans.index') }}" class="btn btn-sm btn-neutral">{{ __('lang.back') }}</a>
+           </div>
+             <div class="col-lg-6 col-md-8">
+                <div class="card bg-light shadow border-0">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <div class="card-body px-lg-5 py-lg-5">
+                        {!! Form::model($siteplan, ['method' => 'PATCH','route' => ['siteplans.update', $siteplan->id]]) !!}
+                        <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group {{ $errors->has('admission_id') ? ' has-danger' : '' }}">
+                                    <div class="input-group input-group mb-3">
+                                    <select class="form-control" name="admission_id" data-toggle="select" required>
+                                        <option value=''>{{ __('lang.selectastudent') }}</option>
+                                            @foreach ($admissions as $key => $value)
+                                                <option value="{{ $key }}" {{ ( $key == $siteplan->admission_id) ? 'selected' : '' }}> 
+                                                    {{ $value }} 
+                                                </option>
+                                            @endforeach    
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('admission_id'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('admission_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group {{ $errors->has('exambench_id') ? ' has-danger' : '' }}">
+                                    <div class="input-group input-group mb-3">
+                                    <select class="form-control" name="exambench_id" data-toggle="select" required>
+                                        <option value=''>{{ __('lang.selectabench') }}</option>
+                                        @foreach ($exambenches as $key => $value)
+                                                <option value="{{ $key }}" {{ ( $key == $siteplan->exambench_id) ? 'selected' : '' }}> 
+                                                    {{ $value }} 
+                                                </option>
+                                            @endforeach    
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('exambench_id'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('exambench_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group {{ $errors->has('exambenchside_id') ? ' has-danger' : '' }}">
+                                    <div class="input-group input-group mb-3">
+                                    <select class="form-control" name="exambenchside_id" data-toggle="select" required>
+                                        <option value=''>{{ __('lang.selectabenchside') }}</option>
+                                        @foreach ($exambenchsides as $key => $value)
+                                                <option value="{{ $key }}" {{ ( $key == $siteplan->exambenchside_id) ? 'selected' : '' }}> 
+                                                    {{ $value }} 
+                                                </option>
+                                            @endforeach    
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('exambenchside_id'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('exambenchside_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group {{ $errors->has('examname_id') ? ' has-danger' : '' }}">
+                                    <div class="input-group input-group mb-3">
+                                    <select class="form-control" name="examname_id" data-toggle="select" required>
+                                        <option value=''>{{ __('lang.selectanexam') }}</option>
+                                        @foreach ($examnames as $key => $value)
+                                                <option value="{{ $key }}" {{ ( $key == $siteplan->examname_id) ? 'selected' : '' }}> 
+                                                    {{ $value }} 
+                                                </option>
+                                            @endforeach    
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('examname_id'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('examname_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                           <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                                <button type="submit" class="btn btn-primary">{{ __('lang.submit') }}</button>
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
